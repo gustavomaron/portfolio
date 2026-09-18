@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gustavo Maron — Desenvolvedor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #14120f;
+    --bg-raised: #1d1a16;
+    --bg-raised-2: #26221c;
+    --line: #35302a;
+    --text: #ede6da;
+    --text-muted: #a99e8e;
+    --accent: #e8a33d;
+    --accent-dim: #7a5b26;
+    --accent-soft: rgba(232, 163, 61, 0.12);
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+
+  a { color: inherit; }
+
+  ::selection { background: var(--accent-soft); color: var(--accent); }
+
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(20, 18, 15, 0.88);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+  .nav-brand {
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+  .nav-brand .dot { color: var(--accent); }
+  .nav-links {
+    display: flex;
+    gap: 22px;
+    font-size: 14px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    transition: color 0.15s ease;
+  }
+  .nav-links a:hover, .nav-links a:focus-visible { color: var(--text); }
+
+  
+  header.hero {
+    padding: 64px 0 40px;
+  }
+
+  .terminal {
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: var(--bg-raised-2);
+    border-bottom: 1px solid var(--line);
+  }
+  .terminal-bar span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #4a443b;
+    display: inline-block;
+  }
+  .terminal-bar .path {
+    margin-left: 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .terminal-body {
+    padding: 22px 20px 26px;
+    font-size: 15px;
+  }
+  .terminal-body .line { margin: 0 0 6px; color: var(--text-muted); }
+  .terminal-body .prompt { color: var(--accent); }
+  #typed-name {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 10px 0 4px;
+    min-height: 34px;
+  }
+  #typed-name .cursor {
+    display: inline-block;
+    width: 9px;
+    height: 24px;
+    background: var(--accent);
+    margin-left: 3px;
+    vertical-align: -4px;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+  .role-line {
+    color: var(--text-muted);
+    font-size: 15px;
+    margin: 0 0 16px;
+  }
+  .terminal-output {
+    color: var(--text-muted);
+    font-size: 14px;
+    max-width: 52ch;
+  }
+
+  
+  section { padding: 44px 0; border-top: 1px solid var(--line); }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+  .section-head .idx { color: var(--accent-dim); font-size: 13px; }
+  .section-head h2 { font-size: 15px; font-weight: 600; margin: 0; color: var(--text); }
+
+  #sobre p { max-width: 58ch; color: var(--text-muted); }
+  #sobre p strong { color: var(--text); font-weight: 500; }
+
+  
+  .stack-list { display: flex; flex-direction: column; gap: 14px; }
+  .stack-row {
+    display: grid;
+    grid-template-columns: 90px 1fr 34px;
+    align-items: center;
+    gap: 14px;
+  }
+  .stack-row .name { font-size: 14px; color: var(--text); }
+  .stack-row .bar {
+    height: 6px;
+    background: var(--bg-raised-2);
+    border-radius: 3px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+  }
+  .stack-row .bar > span {
+    display: block;
+    height: 100%;
+    background: var(--accent);
+    border-radius: 3px 0 0 3px;
+  }
+  .stack-row .pct { font-size: 12px; color: var(--text-muted); text-align: right; }
+
+  
+  .tl { position: relative; padding-left: 22px; }
+  .tl::before {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 4px;
+    bottom: 4px;
+    width: 1px;
+    background: var(--line);
+  }
+  .tl-item { position: relative; padding-bottom: 26px; }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-item::before {
+    content: "";
+    position: absolute;
+    left: -22px;
+    top: 5px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--accent);
+  }
+  .tl-item .when {
+    font-size: 12px;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 3px;
+  }
+  .tl-item .what { font-size: 15px; color: var(--text); margin: 0 0 2px; }
+  .tl-item .where { font-size: 14px; color: var(--text-muted); margin: 0; }
+
+  
+  #contato .lead {
+    color: var(--text-muted);
+    max-width: 48ch;
+    margin: 0 0 22px;
+  }
+  .contact-line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    color: var(--text);
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .contact-line:hover, .contact-line:focus-visible {
+    border-color: var(--accent-dim);
+    background: var(--bg-raised-2);
+  }
+  .contact-line .lbl { color: var(--accent); }
+
+  footer {
+    padding: 28px 0 40px;
+    color: var(--text-muted);
+    font-size: 12px;
+    border-top: 1px solid var(--line);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #typed-name .cursor { animation: none; }
+  }
+
+  @media (max-width: 520px) {
+    .terminal-body { padding: 18px 14px 22px; }
+    #typed-name { font-size: 22px; }
+    .stack-row { grid-template-columns: 70px 1fr 30px; gap: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="nav-brand mono">Gustavo<span class="dot">.</span>dev</div>
+    <ul class="nav-links mono">
+      <li><a href="#sobre">sobre</a></li>
+      <li><a href="#stack">stack</a></li>
+      <li><a href="#experiencia">experiência</a></li>
+      <li><a href="#contato">contato</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span></span><span></span><span></span>
+        <span class="path mono">gustavo@dev</span>
+      </div>
+      <div class="terminal-body mono">
+        <p class="line"><span class="prompt">$</span>Estudante</p>
+        <div id="typed-name"><span class="cursor"></span></div>
+        <p class="role-line">Técnico em informática · cursando Engenharia de Software</p>
+        <p class="terminal-output">Estagiário no Centro de Saúde Dr Carlos Renato Passos, Cruz Machado. A ambição move o mundo. </p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="sobre">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="idx mono">01</span>
+      <h2 class="mono">sobre</h2>
+    </div>
+    <p>Sou <strong>Gustavo Maron</strong>, formado em t.i, atualmente cursando Engenharia de Software. Estou estágiando, onde aplico no dia a dia o que venho estudando, da lógica de programação a boas práticas de desenvolvimento e suporte técnico.</p>
+    <p>Gosto de entender como as coisas funcionam por baixo do capô, e estou sempre buscando aprimorar meus conhecimentos, a disposição de ajudar meus colegas de trabalho e a população com a técnologia. </p>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="idx mono">02</span>
+      <h2 class="mono">stack</h2>
+    </div>
+    <div class="stack-list mono">
+      <div class="stack-row">
+        <span class="name">JavaScript</span>
+        <span class="bar"><span style="width: 75%"></span></span>
+        <span class="pct">75%</span>
+      </div>
+      <div class="stack-row">
+        <span class="name">Python</span>
+        <span class="bar"><span style="width: 70%"></span></span>
+        <span class="pct">70%</span>
+      </div>
+      <div class="stack-row">
+        <span class="name">C++</span>
+        <span class="bar"><span style="width: 55%"></span></span>
+        <span class="pct">55%</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experiencia">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="idx mono">03</span>
+      <h2 class="mono">experiência &amp; formação</h2>
+    </div>
+    <div class="tl">
+      <div class="tl-item">
+        <span class="when mono">atual</span>
+        <p class="what">Estágio em TI</p>
+        <p class="where">SMS Cruz Machado</p>
+      </div>
+      <div class="tl-item">
+        <span class="when mono">em andamento</span>
+        <p class="what">Engenharia de Software</p>
+        <p class="where">Graduação</p>
+      </div>
+      <div class="tl-item">
+        <span class="when mono">concluído</span>
+        <p class="what">Técnico em Informática</p>
+        <p class="where">Ensino técnico</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contato">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="idx mono">04</span>
+      <h2 class="mono">contato</h2>
+    </div>
+    <p class="lead">Aberto a oportunidades de estágio, projetos e trocas sobre tecnologia. Manda um e-mail.</p>
+    <a class="contact-line mono" href="mailto:marongustavo69@gmail.com">
+      <span class="lbl">&gt;_</span> marongustavo69@gmail.com
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap mono">
+    Gustavo Maron - futuro Engenheiro de Software
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var text = "Gustavo Maron";
+    var el = document.getElementById('typed-name');
+    var cursor = el.querySelector('.cursor');
+    var i = 0;
+    function type() {
+      if (i <= text.length) {
+        el.textContent = text.slice(0, i);
+        el.appendChild(cursor);
+        i++;
+        setTimeout(type, 65);
+      }
+    }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      el.textContent = text;
+      el.appendChild(cursor);
+    } else {
+      type();
+    }
+  })();
+</script>
+
+</body>
+</html>
